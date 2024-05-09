@@ -1,0 +1,11 @@
+_schema-version: "3.2"
+ID: basicnodejs_id
+version: 0.0.1
+
+modules:
+  - name: basicnodejs
+    type: nodejs
+    path: .
+    parameters:
+      app-name: basicnodejs
+      memory: 128M
