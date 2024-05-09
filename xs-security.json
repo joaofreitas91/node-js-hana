@@ -1,10 +1,25 @@
 {
-    "xsappname" : "basicnodejs",
-    "tenant-mode" : "dedicated",
-    "oauth2-configuration": {
-        "redirect-uris": [
-            "https://api.cf.us10-001.hana.ondemand.com/**"
-          ]
-        }
-  }
-  
+  "xsappname": "basicnodejs_id",
+  "tenant-mode": "dedicated",
+  "description": "Security profile of called application",
+  "oauth2-configuration": {
+    "redirect-uris": [
+        "https://api.cf.us10-001.hana.ondemand.com/**"
+      ]
+    },
+  "scopes": [
+    {
+      "name": "uaa.user",
+      "description": "UAA"
+    }
+  ],
+  "role-templates": [
+    {
+      "name": "Token_Exchange",
+      "description": "UAA",
+      "scope-references": [
+        "uaa.user"
+      ]
+    }
+  ]
+}

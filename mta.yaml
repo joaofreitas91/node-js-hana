@@ -1,11 +1,63 @@
 _schema-version: "3.2"
 ID: basicnodejs_id
 version: 0.0.1
-
 modules:
-  - name: basicnodejs
-    type: nodejs
-    path: .
+- name: basicnodejs
+  type: nodejs
+  path: .
+  parameters:
+    app-name: basicnodejs
+    memory: 128M
+- name: basicnodejs_id-destination-content
+  type: com.sap.application.content
+  requires:
+  - name: basicnodejs_id-destination-service
     parameters:
-      app-name: basicnodejs
-      memory: 128M
+      content-target: true
+  - name: uaa_basicnodejs_id
+    parameters:
+      service-key:
+        name: uaa_basicnodejs_id-key
+  - name: basicnodejs_id_html_repo_host
+    parameters:
+      service-key:
+        name: basicnodejs_id_html_repo_host-key
+  parameters:
+    content:
+      instance:
+        destinations:
+        - Authentication: OAuth2UserTokenExchange
+          Name: basicnodejs_uaa_basicnodejs_id
+          ServiceInstanceName: basicnodejs_id-xsuaa-service
+          ServiceKeyName: uaa_basicnodejs_id-key
+          sap.cloud.service: basicnodejs
+        - Name: basicnodejs_basicnodejs_id_html_repo_host
+          ServiceInstanceName: basicnodejs_id-html5-app-host-service
+          ServiceKeyName: basicnodejs_id_html_repo_host-key
+          sap.cloud.service: basicnodejs
+        existing_destinations_policy: ignore
+  build-parameters:
+    no-source: true
+resources:
+- name: basicnodejs_id-destination-service
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: true
+      version: 1.0.0
+    service: destination
+    service-name: basicnodejs_id-destination-service
+    service-plan: lite
+- name: uaa_basicnodejs_id
+  type: org.cloudfoundry.managed-service
+  parameters:
+    path: ./xs-security.json
+    service: xsuaa
+    service-name: basicnodejs_id-xsuaa-service
+    service-plan: application
+- name: basicnodejs_id_html_repo_host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: basicnodejs_id-html5-app-host-service
+    service-plan: app-host
