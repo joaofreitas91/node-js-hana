@@ -1,0 +1,10 @@
+{
+    "xsappname" : "basicnodejs",
+    "tenant-mode" : "dedicated",
+    "oauth2-configuration": {
+        "redirect-uris": [
+            "https://api.cf.us10-001.hana.ondemand.com/**"
+          ]
+        }
+  }
+  
